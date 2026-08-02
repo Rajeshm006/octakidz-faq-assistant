@@ -1,0 +1,52 @@
+<main class="page-shell">
+  <section class="chat-card" aria-labelledby="page-title">
+    <header class="hero">
+      <p class="eyebrow">OCTAKIDZ · PARENT SUPPORT</p>
+      <h1 id="page-title">FAQ Assistant</h1>
+      <p>Simple answers for parents and caregivers of children aged 10–14.</p>
+    </header>
+
+    <section class="suggestions" aria-label="Suggested questions">
+      <p>Try one of these:</p>
+      <div class="chip-row">
+        <button type="button" class="chip" *ngFor="let question of suggestedQuestions" (click)="useSuggestion(question)">
+          {{ question }}
+        </button>
+      </div>
+    </section>
+
+    <section class="messages" aria-live="polite" aria-label="Chat messages">
+      <article *ngFor="let message of messages" class="message" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'">
+        <span class="label">{{ message.role === 'user' ? 'You' : 'OctaKidz' }}</span>
+        <p>{{ message.text }}</p>
+        <div *ngIf="message.escalated" class="follow-up">
+          Our support team can help with the next steps.
+          <button *ngIf="message.leadCaptureRequested" type="button" (click)="openContactForm()">Request a follow-up</button>
+        </div>
+      </article>
+      <p *ngIf="loading" class="typing">OctaKidz is checking the FAQ…</p>
+    </section>
+
+    <form class="composer" (ngSubmit)="send()" aria-label="Send a question">
+      <label for="message">Your question</label>
+      <div class="compose-row">
+        <input id="message" name="message" [(ngModel)]="draft" [disabled]="loading" maxlength="2000"
+          placeholder="Ask about OctaKidz…" autocomplete="off">
+        <button type="submit" [disabled]="loading || !draft.trim()">{{ loading ? 'Sending…' : 'Send' }}</button>
+      </div>
+    </form>
+
+    <p *ngIf="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
+
+    <form *ngIf="showContactForm" class="contact-form" aria-label="Optional support follow-up">
+      <h2>Optional support follow-up</h2>
+      <p>Share only a name and email if you would like the OctaKidz team to contact you. Do not share passwords or payment details.</p>
+      <label for="contactName">Name</label>
+      <input id="contactName" name="contactName" [(ngModel)]="contactName" autocomplete="name">
+      <label for="contactEmail">Email</label>
+      <input id="contactEmail" name="contactEmail" [(ngModel)]="contactEmail" type="email" autocomplete="email">
+      <p class="contact-note">This demo does not send or store contact details.</p>
+    </form>
+  </section>
+</main>
+

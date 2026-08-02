@@ -1,0 +1,842 @@
+{
+  "schema_version": "1.0",
+  "dataset_name": "OctaKidz Chatbot FAQ",
+  "language": "en-IN",
+  "updated_on": "2026-07-24",
+  "total_questions": 103,
+  "fields": {
+    "id": "Unique question identifier",
+    "category": "FAQ category",
+    "question": "User-facing question",
+    "answer": "Crisp chatbot response",
+    "link_text": "CTA label",
+    "url": "Relevant OctaKidz webpage"
+  },
+  "questions": [
+    {
+      "id": "octa_001",
+      "category": "About OctaKidz",
+      "question": "What is OctaKidz?",
+      "answer": "OctaKidz is a screen-free, activity-based program that develops eight Natural Intelligences and 35+ future-ready skills in children.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/"
+    },
+    {
+      "id": "octa_002",
+      "category": "About OctaKidz",
+      "question": "How does OctaKidz help my child?",
+      "answer": "It helps children practise critical thinking, creativity, communication, problem-solving and emotional awareness through open-ended activities.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/why-octakidz"
+    },
+    {
+      "id": "octa_003",
+      "category": "About OctaKidz",
+      "question": "Is OctaKidz a tuition program?",
+      "answer": "No. OctaKidz complements school education by developing thinking and real-world skills beyond marks, subjects and memorisation.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/why-octakidz"
+    },
+    {
+      "id": "octa_004",
+      "category": "About OctaKidz",
+      "question": "Is it a learning program or an assessment?",
+      "answer": "It is a development program where activities build skills and AI-supported evaluation helps track the child’s emerging strengths and progress.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_005",
+      "category": "About OctaKidz",
+      "question": "What is higher-order thinking?",
+      "answer": "It is the ability to analyse, question, connect ideas, solve unfamiliar problems and create original responses instead of only recalling information.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/"
+    },
+    {
+      "id": "octa_006",
+      "category": "About OctaKidz",
+      "question": "Is OctaKidz online or offline?",
+      "answer": "Children complete the activities offline; screens are used only to upload their work, receive feedback and view progress.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_007",
+      "category": "About OctaKidz",
+      "question": "Who developed OctaKidz?",
+      "answer": "OctaKidz was created by a multidisciplinary team of educationalists, pedagogy experts, psychologists and designers.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/about-us"
+    },
+    {
+      "id": "octa_008",
+      "category": "About OctaKidz",
+      "question": "Is OctaKidz an Indian company?",
+      "answer": "Yes. OctaKidz is a product of Curiosity Quest Private Limited, India.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/about-us"
+    },
+    {
+      "id": "octa_009",
+      "category": "Age and eligibility",
+      "question": "What age group is OctaKidz for?",
+      "answer": "OctaKidz is primarily designed for children aged 10–14, generally covering Grades 6–9.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_010",
+      "category": "Age and eligibility",
+      "question": "Can a child outside this age range participate?",
+      "answer": "Suitability may depend on the child’s grade and comfort with the activities. Please contact our team for personalized guidance.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_011",
+      "category": "Age and eligibility",
+      "question": "Is OctaKidz suitable for every school board?",
+      "answer": "Yes. It focuses on transferable skills and can complement CBSE, ICSE, state board, IB and Cambridge education.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_012",
+      "category": "Age and eligibility",
+      "question": "Does my child need prior knowledge?",
+      "answer": "No special knowledge is required. Activities begin with familiar situations and encourage children to observe, explore, create and reflect.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_013",
+      "category": "Age and eligibility",
+      "question": "Is it suitable for children with additional learning needs?",
+      "answer": "Open-ended activities support different forms of expression, but OctaKidz is not a clinical or special-education intervention.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_014",
+      "category": "Age and eligibility",
+      "question": "Is the program available in regional languages?",
+      "answer": "The current program is primarily available in English. Please contact us to check whether language assistance is available.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_015",
+      "category": "Age and eligibility",
+      "question": "Can children outside India participate?",
+      "answer": "Digital participation may be possible, but physical-kit delivery depends on the location. Please contact our team to confirm availability.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_016",
+      "category": "Natural Intelligences and skills",
+      "question": "What are the eight Natural Intelligences?",
+      "answer": "They are Cognitive, Creative, Arithmetic, Artistic, Emotional, Social, Communication and Environmental Intelligence.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/why-octakidz"
+    },
+    {
+      "id": "octa_017",
+      "category": "Natural Intelligences and skills",
+      "question": "How are Natural Intelligences different from IQ?",
+      "answer": "IQ measures a limited range of abilities, while OctaKidz also explores creativity, communication, emotions, social understanding and artistic expression.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/why-octakidz"
+    },
+    {
+      "id": "octa_018",
+      "category": "Natural Intelligences and skills",
+      "question": "Does every child have all eight intelligences?",
+      "answer": "Yes. Every child demonstrates them in different combinations, and these patterns can develop with exposure, practice and experience.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/why-octakidz"
+    },
+    {
+      "id": "octa_019",
+      "category": "Natural Intelligences and skills",
+      "question": "Will OctaKidz label my child?",
+      "answer": "No. It creates an evolving profile based on activity evidence rather than assigning a fixed label or intelligence type.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_020",
+      "category": "Natural Intelligences and skills",
+      "question": "What if my child appears weaker in one intelligence?",
+      "answer": "It may simply mean that the ability needs more exposure, practice or a different way of expression. It is not treated as a permanent weakness.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_021",
+      "category": "Natural Intelligences and skills",
+      "question": "Can these intelligences improve?",
+      "answer": "Yes. Regular activities give children opportunities to practise and strengthen different skills and intelligences over time.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_022",
+      "category": "Natural Intelligences and skills",
+      "question": "What skills does OctaKidz develop?",
+      "answer": "It develops 35+ skills, including critical thinking, observation, creativity, communication, empathy, reasoning and problem-solving.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/"
+    },
+    {
+      "id": "octa_023",
+      "category": "Natural Intelligences and skills",
+      "question": "Will it improve my child’s marks?",
+      "answer": "OctaKidz is not an academic coaching program, but stronger reasoning, curiosity and application skills may support the child’s broader learning.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/why-octakidz"
+    },
+    {
+      "id": "octa_024",
+      "category": "Activities and methodology",
+      "question": "What kind of activities will my child do?",
+      "answer": "Children draw, design, observe, investigate, solve problems, build ideas, express opinions and reflect on real-world situations.",
+      "link_text": "Explore the activities",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_025",
+      "category": "Activities and methodology",
+      "question": "Are these only worksheets?",
+      "answer": "The activities use sheets and booklets, but go beyond conventional worksheets through investigation, creation, discussion and hands-on exploration.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_026",
+      "category": "Activities and methodology",
+      "question": "Are the activities screen-free?",
+      "answer": "Yes. The main learning experience happens offline; the digital platform is used for uploads, feedback and progress tracking.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_027",
+      "category": "Activities and methodology",
+      "question": "Are there right and wrong answers?",
+      "answer": "Many activities are open-ended and allow multiple valid answers. Evaluation focuses on the child’s reasoning, originality and expression.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_028",
+      "category": "Activities and methodology",
+      "question": "How does an activity work?",
+      "answer": "Every activity follows three stages: pre-learning, a hands-on main activity and post-learning reflection.",
+      "link_text": "See how it works",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_029",
+      "category": "Activities and methodology",
+      "question": "How long does one activity take?",
+      "answer": "Most activities take approximately 15–30 minutes, although the time may vary depending on the activity and the child’s exploration.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_030",
+      "category": "Activities and methodology",
+      "question": "How often should activities be completed?",
+      "answer": "We recommend approximately two activities per week so the child can remain engaged and develop consistently.",
+      "link_text": "View the program",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_031",
+      "category": "Activities and methodology",
+      "question": "What materials are required?",
+      "answer": "Most activities use simple household materials such as paper, pencils, colours, cardboard and everyday objects.",
+      "link_text": "Explore the program",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_032",
+      "category": "Activities and methodology",
+      "question": "Can my child complete the activities independently?",
+      "answer": "Yes. Most children can work independently after understanding the instructions, with occasional guidance from a parent or caregiver.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_033",
+      "category": "Activities and methodology",
+      "question": "What if my child gives an unusual answer?",
+      "answer": "Unusual ideas are welcome when they are relevant and the child can explain their thinking. Originality is an important part of the experience.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_034",
+      "category": "Activities and methodology",
+      "question": "What if an activity feels too easy or difficult?",
+      "answer": "Encourage the child to attempt it in their own way. If the difficulty continues, contact our team for guidance.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_035",
+      "category": "Parent involvement",
+      "question": "Do parents need to teach the activities?",
+      "answer": "No. Parents only need to guide or encourage the child when required; OctaKidz handles the activity framework, evaluation and feedback.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_036",
+      "category": "Parent involvement",
+      "question": "How much time must a parent spend?",
+      "answer": "Most activities require only about 5–10 minutes of light parent involvement.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_037",
+      "category": "Parent involvement",
+      "question": "Should I help when my child is stuck?",
+      "answer": "Help them understand the instruction and ask guiding questions, but avoid giving the final answer so their work reflects their own thinking.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_038",
+      "category": "Parent involvement",
+      "question": "Should I correct spelling or drawing?",
+      "answer": "Allow the child to express ideas naturally. You may ask them to improve readability, but avoid rewriting or improving their response.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_039",
+      "category": "Parent involvement",
+      "question": "What if my child loses interest?",
+      "answer": "Avoid forcing the activity; try another time, connect it to an interest or divide it into smaller steps. Contact us if the concern continues.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_040",
+      "category": "Parent involvement",
+      "question": "Can a caregiver supervise instead of a parent?",
+      "answer": "Yes. Any trusted caregiver can provide light guidance, provided the final response remains the child’s own work.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_041",
+      "category": "AI evaluation",
+      "question": "How does the AI evaluate my child’s work?",
+      "answer": "The system uses activity-specific rubrics to identify indicators such as reasoning, creativity, clarity, relevance and emotional understanding.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_042",
+      "category": "AI evaluation",
+      "question": "Does the AI give marks?",
+      "answer": "No conventional marks or pass/fail judgments are given. The focus is on developmental feedback, strengths and opportunities for improvement.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_043",
+      "category": "AI evaluation",
+      "question": "How can AI evaluate open-ended answers?",
+      "answer": "It compares the response with defined skill indicators rather than searching for one fixed correct answer.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_044",
+      "category": "AI evaluation",
+      "question": "Can AI understand handwriting and drawings?",
+      "answer": "It can evaluate sufficiently clear written and visual responses. Blurry images, missing content or unreadable handwriting may require re-uploading.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_045",
+      "category": "AI evaluation",
+      "question": "Can the AI make mistakes?",
+      "answer": "AI may occasionally misunderstand handwriting, drawings or context. Contact our team if feedback appears inaccurate or inappropriate.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_046",
+      "category": "AI evaluation",
+      "question": "Is the AI completely unbiased?",
+      "answer": "Structured rubrics improve consistency, but no AI system is completely free from errors or bias. Feedback should be viewed as developmental guidance.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_047",
+      "category": "AI evaluation",
+      "question": "How long does evaluation take?",
+      "answer": "Feedback is generated after the activity has been successfully uploaded and processed. Contact support if it remains unavailable.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_048",
+      "category": "AI evaluation",
+      "question": "Can I request a human review?",
+      "answer": "Yes. If you believe the evaluation misunderstood your child’s response, contact our team with the activity and submission details.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_049",
+      "category": "Reports and progress",
+      "question": "What does the report show?",
+      "answer": "Reports show demonstrated intelligences, skills, emerging strengths, areas for improvement and progress across completed activities.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_050",
+      "category": "Reports and progress",
+      "question": "How is my child’s progress tracked?",
+      "answer": "Every completed activity adds evidence to the child’s evolving intelligence and skill profile, helping reveal patterns over time.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_051",
+      "category": "Reports and progress",
+      "question": "Does the report compare children?",
+      "answer": "The primary focus is the child’s individual development rather than ranking them against other children.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_052",
+      "category": "Reports and progress",
+      "question": "How many activities are required for a reliable profile?",
+      "answer": "One activity provides only an initial signal. A more balanced profile develops as the child completes varied activities over time.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_053",
+      "category": "Reports and progress",
+      "question": "How often are reports provided?",
+      "answer": "Reports and progress insights are generated according to the selected plan and number of completed activities.",
+      "link_text": "View the plans",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_054",
+      "category": "Reports and progress",
+      "question": "What happens if my child misses activities?",
+      "answer": "The report will use the completed activity evidence available. Missing activities may reduce the breadth of insights but do not indicate low ability.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/ai-reporting"
+    },
+    {
+      "id": "octa_055",
+      "category": "Reports and progress",
+      "question": "Can reports be downloaded or shared?",
+      "answer": "Report availability and sharing options depend on the current platform and plan. Please contact our team for assistance.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_056",
+      "category": "Neuroscience and research",
+      "question": "What does neuroscience-backed mean?",
+      "answer": "OctaKidz uses principles related to neuroplasticity, active learning, reflection and multisensory engagement to design its activities.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/neuroscience-behind-octakidz"
+    },
+    {
+      "id": "octa_057",
+      "category": "Neuroscience and research",
+      "question": "Does OctaKidz scan my child’s brain?",
+      "answer": "No. Brain-scanning or EEG equipment is not part of the regular customer program.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/neuroscience-behind-octakidz"
+    },
+    {
+      "id": "octa_058",
+      "category": "Neuroscience and research",
+      "question": "Which part of the brain does an activity activate?",
+      "answer": "Complex activities use interacting brain networks rather than one isolated region. OctaKidz therefore focuses on observable thinking and skill behaviours.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/neuroscience-behind-octakidz"
+    },
+    {
+      "id": "octa_059",
+      "category": "Neuroscience and research",
+      "question": "Is OctaKidz a medical or psychological assessment?",
+      "answer": "No. It is an educational development program and cannot diagnose or treat neurological, psychological or learning conditions.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/neuroscience-behind-octakidz"
+    },
+    {
+      "id": "octa_060",
+      "category": "Neuroscience and research",
+      "question": "Does OctaKidz improve IQ?",
+      "answer": "OctaKidz does not promise an IQ increase; it provides repeated practice in reasoning, creativity, communication and other future-ready abilities.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/neuroscience-behind-octakidz"
+    },
+    {
+      "id": "octa_061",
+      "category": "Neuroscience and research",
+      "question": "Does OctaKidz guarantee improvement?",
+      "answer": "Outcomes vary by child, participation and activity evidence. OctaKidz does not guarantee identical results for every child.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/neuroscience-behind-octakidz"
+    },
+    {
+      "id": "octa_062",
+      "category": "Career Map",
+      "question": "What is the OctaKidz Career Map?",
+      "answer": "It connects patterns in a child’s demonstrated skills, intelligences and interests with possible areas for future exploration.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/career-map"
+    },
+    {
+      "id": "octa_063",
+      "category": "Career Map",
+      "question": "Does it predict my child’s career?",
+      "answer": "No. It suggests evolving possibilities and should be used as an exploration tool, not a fixed prediction.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/career-map"
+    },
+    {
+      "id": "octa_064",
+      "category": "Career Map",
+      "question": "Is the Career Map based on marks?",
+      "answer": "It focuses on demonstrated skills, thinking patterns and interests beyond academic marks alone.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/career-map"
+    },
+    {
+      "id": "octa_065",
+      "category": "Career Map",
+      "question": "Can the career suggestions change?",
+      "answer": "Yes. Suggestions evolve as the child completes more activities, develops skills and discovers new interests.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/career-map"
+    },
+    {
+      "id": "octa_066",
+      "category": "Career Map",
+      "question": "Will my child be pushed toward one career?",
+      "answer": "No. The Career Map broadens awareness and supports exploration without prescribing one career path.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/career-map"
+    },
+    {
+      "id": "octa_067",
+      "category": "Programs and enrolment",
+      "question": "Can we try OctaKidz before subscribing?",
+      "answer": "Yes. The Starter Pack includes five downloadable activities, an Intelligence and Skill Report and one month of portal access.",
+      "link_text": "View the Starter Pack",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_068",
+      "category": "Programs and enrolment",
+      "question": "What does the annual program include?",
+      "answer": "It includes 75 activities, seven printed booklets, intelligence and skill-based reporting and 12 months of portal access.",
+      "link_text": "View the annual program",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_069",
+      "category": "Programs and enrolment",
+      "question": "How much does OctaKidz cost?",
+      "answer": "The Starter Pack is currently ₹500. Please check the program page for the latest annual-plan pricing and applicable GST.",
+      "link_text": "View pricing",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_070",
+      "category": "Programs and enrolment",
+      "question": "How do I enrol?",
+      "answer": "Choose your preferred plan on the website, enter the required parent and child information and complete the payment.",
+      "link_text": "Enrol now",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_071",
+      "category": "Programs and enrolment",
+      "question": "Can siblings use the same subscription?",
+      "answer": "Each child should have a separate profile because activities, feedback and progress insights are personalized.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_072",
+      "category": "Programs and enrolment",
+      "question": "Can I upgrade after the trial?",
+      "answer": "Yes. You can move from the Starter Pack to the annual program for continued activities and progress tracking.",
+      "link_text": "View plans",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_073",
+      "category": "Shipping and uploads",
+      "question": "When will I receive the booklets?",
+      "answer": "Printed booklets are usually shipped within three to five working days, with tracking details shared after dispatch.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_074",
+      "category": "Shipping and uploads",
+      "question": "Does the Starter Pack include printed booklets?",
+      "answer": "No. It includes five downloadable activities that can be printed and completed at home.",
+      "link_text": "View the Starter Pack",
+      "url": "https://octakidz.com/programs"
+    },
+    {
+      "id": "octa_075",
+      "category": "Shipping and uploads",
+      "question": "How do I upload an activity?",
+      "answer": "Take a clear photograph showing the complete activity sheet and upload it under the corresponding activity in the OctaKidz platform.",
+      "link_text": "See how it works",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_076",
+      "category": "Shipping and uploads",
+      "question": "Why was my submission rejected?",
+      "answer": "It may be incomplete, blurry, unreadable, incorrectly matched or missing a required page. Follow the displayed instructions and upload it again.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/our-process"
+    },
+    {
+      "id": "octa_077",
+      "category": "Shipping and uploads",
+      "question": "Can I replace an incorrect upload?",
+      "answer": "Please follow the resubmission option shown on the platform or contact support if you cannot replace the activity.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_078",
+      "category": "Shipping and uploads",
+      "question": "Is there a mobile app?",
+      "answer": "OctaKidz is currently available on Android through Google Play; please check the website for the latest platform availability.",
+      "link_text": "Visit OctaKidz",
+      "url": "https://octakidz.com/"
+    },
+    {
+      "id": "octa_079",
+      "category": "OctaKidz for schools",
+      "question": "How does OctaKidz work in schools?",
+      "answer": "Students complete hands-on activities while schools receive AI-enabled feedback, participation visibility and monthly progress insights.",
+      "link_text": "OctaKidz for Schools",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_080",
+      "category": "OctaKidz for schools",
+      "question": "Does it replace the school curriculum?",
+      "answer": "No. It complements the curriculum by building real-world thinking, creativity, communication and problem-solving skills.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_081",
+      "category": "OctaKidz for schools",
+      "question": "Is OctaKidz aligned with NEP 2020?",
+      "answer": "Its experiential and competency-based approach aligns with key NEP 2020 directions, but this does not imply government certification.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_082",
+      "category": "OctaKidz for schools",
+      "question": "How much timetable space is required?",
+      "answer": "The implementation can be adapted as an enrichment program, club, home-engagement activity or structured school initiative.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_083",
+      "category": "OctaKidz for schools",
+      "question": "Is a school pilot available?",
+      "answer": "Yes. The website currently offers an introductory two-month program for eligible schools.",
+      "link_text": "Explore the school program",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_084",
+      "category": "OctaKidz for schools",
+      "question": "What happens during implementation?",
+      "answer": "OctaKidz supports program planning, onboarding, account setup, activity distribution, participation monitoring and progress reporting.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_085",
+      "category": "OctaKidz for schools",
+      "question": "How much work is required from teachers?",
+      "answer": "Teachers mainly support coordination and participation, while OctaKidz manages activities, evaluation and reporting.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_086",
+      "category": "OctaKidz for schools",
+      "question": "Are teacher workshops included?",
+      "answer": "Teacher-enablement workshops can be included based on the school’s selected implementation plan.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_087",
+      "category": "OctaKidz for schools",
+      "question": "What reports will the school receive?",
+      "answer": "Schools can receive student-level insights, completion information, intelligence and skill patterns and broader class-level trends.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_088",
+      "category": "OctaKidz for schools",
+      "question": "How is school pricing calculated?",
+      "answer": "Pricing depends on student count, duration, physical materials, reporting and implementation support. Contact us for a proposal.",
+      "link_text": "Request a proposal",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_089",
+      "category": "OctaKidz for schools",
+      "question": "Does the school need additional technology?",
+      "answer": "Activities are offline, while digital access is needed for account management, uploads, evaluation and reports.",
+      "link_text": "Know more",
+      "url": "https://octakidz.com/for-school"
+    },
+    {
+      "id": "octa_090",
+      "category": "OctaKidz for schools",
+      "question": "Can OctaKidz integrate with our LMS or ERP?",
+      "answer": "Integration requirements are reviewed based on the school’s system and implementation scale. Please share your technical requirements with us.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_091",
+      "category": "OctaKidz for schools",
+      "question": "Can activities be customized?",
+      "answer": "Customization may be considered based on grade, student count, regional context and the school’s objectives.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_092",
+      "category": "OctaKidz for schools",
+      "question": "How can our school request a demo?",
+      "answer": "Share your school name, location, grades, approximate student count and preferred contact details with our team.",
+      "link_text": "Request a demo",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_093",
+      "category": "Privacy and safety",
+      "question": "What child information does OctaKidz collect?",
+      "answer": "It may collect profile information, uploaded activity responses, evaluation results and usage data needed to provide the program.",
+      "link_text": "Read the Privacy Policy",
+      "url": "https://octakidz.com/privacy-policy"
+    },
+    {
+      "id": "octa_094",
+      "category": "Privacy and safety",
+      "question": "Is my child’s information used to train AI?",
+      "answer": "Please refer to the Privacy Policy for current information about how uploaded responses and personal data are processed.",
+      "link_text": "Read the Privacy Policy",
+      "url": "https://octakidz.com/privacy-policy"
+    },
+    {
+      "id": "octa_095",
+      "category": "Privacy and safety",
+      "question": "Who can access my child’s reports?",
+      "answer": "Access is limited according to the account and program setup. Please refer to the Privacy Policy for more information.",
+      "link_text": "Read the Privacy Policy",
+      "url": "https://octakidz.com/privacy-policy"
+    },
+    {
+      "id": "octa_096",
+      "category": "Privacy and safety",
+      "question": "Can I request deletion of my child’s data?",
+      "answer": "Yes. Contact the OctaKidz team to submit a verified account or personal-data deletion request.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_097",
+      "category": "Privacy and safety",
+      "question": "Is OctaKidz safe for children?",
+      "answer": "Activities are completed offline, and the platform is primarily used for uploading work, viewing feedback and tracking progress.",
+      "link_text": "Read the Privacy Policy",
+      "url": "https://octakidz.com/privacy-policy"
+    },
+    {
+      "id": "octa_098",
+      "category": "Payments, refunds and support",
+      "question": "Can I cancel my order or request a refund?",
+      "answer": "Eligibility depends on the plan, digital access and whether physical materials have been dispatched.",
+      "link_text": "Read the Refund Policy",
+      "url": "https://octakidz.com/refund-cancellation-policy"
+    },
+    {
+      "id": "octa_099",
+      "category": "Payments, refunds and support",
+      "question": "What if my booklet arrives damaged?",
+      "answer": "Share your order details and clear photographs of the damage with our support team for verification and replacement guidance.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_100",
+      "category": "Payments, refunds and support",
+      "question": "I paid but did not receive access. What should I do?",
+      "answer": "Share your registered contact details, payment date and transaction reference with support. Never share your password, card number or OTP.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_101",
+      "category": "Payments, refunds and support",
+      "question": "How can I speak to the OctaKidz team?",
+      "answer": "Share your name, contact details and question through the Contact Us page, and the appropriate team member will assist you.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_102",
+      "category": "Payments, refunds and support",
+      "question": "How can I track my order?",
+      "answer": "Tracking details are shared after dispatch. Contact support with your order information if you have not received them.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    },
+    {
+      "id": "octa_103",
+      "category": "Payments, refunds and support",
+      "question": "Do you provide invoices?",
+      "answer": "Please contact the team with your order or payment details to request an invoice.",
+      "link_text": "Contact us",
+      "url": "https://octakidz.com/contact-us"
+    }
+  ]
+}
+
