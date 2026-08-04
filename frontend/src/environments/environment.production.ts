@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://your-render-service.onrender.com',
+  apiBaseUrl: 'https://octakidz-faq-assistant.onrender.com',
 };
-
