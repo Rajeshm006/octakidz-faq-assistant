@@ -50,7 +50,10 @@ def create_app() -> FastAPI:
         return {"status": "ok"}
 
     @app.post("/api/chat", response_model=FinalOutput)
-    async def chat(payload: ChatRequest) -> FinalOutput:
+    def chat(payload: ChatRequest) -> FinalOutput:
+        # This endpoint is intentionally synchronous. FastAPI runs it in a worker
+        # thread, allowing CrewAI's synchronous kickoff to execute without nesting
+        # inside the server event loop and without blocking other async requests.
         try:
             return app.state.service.process_message(payload.message, payload.session_id)
         except (ValueError, RuntimeError) as exc:
