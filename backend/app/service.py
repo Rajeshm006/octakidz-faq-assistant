@@ -32,6 +32,7 @@ class FAQAssistantService:
         cache_key = (session_id or "", normalized)
 
         guardrails = guardrail_check(user_message)
+        session: dict[str, str] = {}
         if session_id:
             session = self._session_memory.setdefault(session_id, {})
             self._remember_user_facts(user_message, session)
@@ -40,12 +41,19 @@ class FAQAssistantService:
                 session["last_message"] = user_message
                 return memory_response
 
+        small_talk_response = self._answer_small_talk(normalized)
+        if small_talk_response is not None and not guardrails.should_refuse:
+            if session_id:
+                session["last_message"] = user_message
+            return small_talk_response
+
         if cache_key in self._response_cache:
             return self._response_cache[cache_key]
 
+        faq_message = self._contextualize_faq_question(user_message, normalized, session)
         # The exact four sequential handoffs are locally validated Pydantic models.
-        classification = classify_message(self.faq_dataset, user_message, guardrails)
-        retrieval = retrieve_faq(self.faq_dataset, user_message, classification)
+        classification = classify_message(self.faq_dataset, faq_message, guardrails)
+        retrieval = retrieve_faq(self.faq_dataset, faq_message, classification)
         draft = draft_response(retrieval)
         decision = make_decision(classification, retrieval, guardrails, user_message)
         # An optional CrewAI pass may assist operations, but cannot override this finalizer.
@@ -77,10 +85,53 @@ class FAQAssistantService:
             user_message,
             flags=re.IGNORECASE,
         )
-        if age_match and re.search(
-            r"\b(?:child|kid|son|daughter)\b", user_message, flags=re.IGNORECASE
+        if age_match and (
+            re.search(r"\b(?:child|kid|kis|son|daughter)\b", user_message, flags=re.IGNORECASE)
+            or (
+                "octakidz" in user_message.lower()
+                and re.search(
+                    r"\b(?:join|use|suitable|eligible|participate)\b",
+                    user_message,
+                    flags=re.IGNORECASE,
+                )
+            )
         ):
             session["child_age"] = age_match.group(1)
+
+    @staticmethod
+    def _answer_small_talk(normalized_message: str) -> FinalOutput | None:
+        greeting = re.sub(r"[^a-z\s]", "", normalized_message).strip()
+        if greeting in {"hi", "hello", "hey", "hi there", "hello there", "hey there"}:
+            return FinalOutput(
+                final_response=(
+                    "Hi! I’m the OctaKidz Parent Assistant. Ask me about activities, "
+                    "eligibility, books, reports, pricing or onboarding."
+                ),
+                category="Conversation",
+                confidence="high",
+                escalated=False,
+                lead_capture_requested=False,
+                internal_note="Handled as conversational greeting.",
+            )
+        return None
+
+    @staticmethod
+    def _contextualize_faq_question(
+        user_message: str, normalized_message: str, session: dict[str, str]
+    ) -> str:
+        asks_about_eligibility = (
+            "octakidz" in normalized_message
+            and bool(re.search(
+                r"\b(?:join|use|suitable|eligible|participate)\b",
+                normalized_message,
+            ))
+        )
+        if asks_about_eligibility and (
+            session.get("child_age")
+            or re.search(r"\b\d{1,2}\s*(?:years?|yrs?|year|yr)\s*old\b", normalized_message)
+        ):
+            return "What age group is OctaKidz for?"
+        return user_message
 
     @staticmethod
     def _answer_from_session_memory(

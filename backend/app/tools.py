@@ -29,6 +29,23 @@ def faq_lookup(
         entry for entry in faq_dataset.questions if not category or entry.category == category
     ] or faq_dataset.questions
 
+    # Prefer an exact normalized FAQ question before token scoring. Without this,
+    # a generic one-token question such as "What is OctaKidz?" can tie a more
+    # specific exact query at 1.0 and win merely because it appears first.
+    normalized_message = " ".join(re.findall(r"[a-z0-9]+", user_message.lower()))
+    for entry in candidates:
+        normalized_question = " ".join(re.findall(r"[a-z0-9]+", entry.question.lower()))
+        if normalized_message == normalized_question:
+            return LookupOutput(
+                matched=True,
+                faq_id=entry.id,
+                category=entry.category,
+                answer=entry.answer,
+                link_text=entry.link_text,
+                url=entry.url,
+                confidence=1.0,
+            )
+
     best_entry = None
     best_score = 0.0
     for entry in candidates:
@@ -139,4 +156,3 @@ def escalation_decision(
         "lead_capture_requested": escalated,
         "reason": "; ".join(reasons) if reasons else "no escalation trigger",
     }
-

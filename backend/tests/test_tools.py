@@ -73,3 +73,30 @@ def test_session_memory_is_isolated_between_sessions():
     result = service.process_message("What is my name?", session_id="family-2")
 
     assert "Maya" not in result.final_response
+
+
+def test_greeting_gets_a_conversational_response_without_escalation():
+    get_settings.cache_clear()
+    service = FAQAssistantService(dataset(), get_settings())
+
+    result = service.process_message("hi", session_id="family-1")
+
+    assert result.final_response.startswith("Hi!")
+    assert result.category == "Conversation"
+    assert result.escalated is False
+    assert result.lead_capture_requested is False
+
+
+def test_age_and_eligibility_context_routes_to_age_faq():
+    get_settings.cache_clear()
+    service = FAQAssistantService(dataset(), get_settings())
+
+    result = service.process_message(
+        "hi my name is maya, and my kis is 14 years old, can I use octakidz ?",
+        session_id="family-1",
+    )
+    recall = service.process_message("what is my name?", session_id="family-1")
+
+    assert result.category == "Age and eligibility"
+    assert "10–14" in result.final_response
+    assert recall.final_response == "Your name is Maya."
