@@ -1,3 +1,5 @@
+import re
+
 from .config import Settings
 from .schemas import FinalOutput, GuardrailOutput
 from .tools import guardrail_check
@@ -28,10 +30,19 @@ class FAQAssistantService:
     def process_message(self, user_message: str, session_id: str | None = None) -> FinalOutput:
         normalized = user_message.strip().lower()
         cache_key = (session_id or "", normalized)
+
+        guardrails = guardrail_check(user_message)
+        if session_id:
+            session = self._session_memory.setdefault(session_id, {})
+            self._remember_user_facts(user_message, session)
+            memory_response = self._answer_from_session_memory(normalized, session)
+            if memory_response is not None and not guardrails.should_refuse:
+                session["last_message"] = user_message
+                return memory_response
+
         if cache_key in self._response_cache:
             return self._response_cache[cache_key]
 
-        guardrails = guardrail_check(user_message)
         # The exact four sequential handoffs are locally validated Pydantic models.
         classification = classify_message(self.faq_dataset, user_message, guardrails)
         retrieval = retrieve_faq(self.faq_dataset, user_message, classification)
@@ -45,6 +56,65 @@ class FAQAssistantService:
             self._session_memory.setdefault(session_id, {})["last_message"] = user_message
         self._response_cache[cache_key] = result
         return result
+
+    @staticmethod
+    def _remember_user_facts(user_message: str, session: dict[str, str]) -> None:
+        """Keep a few user-provided facts in process memory for this session only."""
+        name_marker = re.search(r"\bmy\s+name\s+is\s+", user_message, flags=re.IGNORECASE)
+        if name_marker:
+            name_tail = user_message[name_marker.end():]
+            candidate = re.split(
+                r"[,.;!?]|\b(?:and|but|i\s+have|i've)\b",
+                name_tail,
+                maxsplit=1,
+                flags=re.IGNORECASE,
+            )[0].strip()
+            if re.fullmatch(r"[A-Za-z][A-Za-z'-]*(?:\s+[A-Za-z][A-Za-z'-]*){0,2}", candidate):
+                session["name"] = " ".join(part[:1].upper() + part[1:] for part in candidate.split())
+
+        age_match = re.search(
+            r"\b(\d{1,2})\s*(?:years?|yrs?|year|yr)\s*old\b",
+            user_message,
+            flags=re.IGNORECASE,
+        )
+        if age_match and re.search(
+            r"\b(?:child|kid|son|daughter)\b", user_message, flags=re.IGNORECASE
+        ):
+            session["child_age"] = age_match.group(1)
+
+    @staticmethod
+    def _answer_from_session_memory(
+        normalized_message: str, session: dict[str, str]
+    ) -> FinalOutput | None:
+        asks_for_name = bool(re.search(
+            r"\b(?:what(?:'s| is) my name|do you remember my name|who am i)\b",
+            normalized_message,
+        ))
+        if asks_for_name and session.get("name"):
+            return FinalOutput(
+                final_response=f"Your name is {session['name']}.",
+                category="Conversation memory",
+                confidence="high",
+                escalated=False,
+                lead_capture_requested=False,
+                internal_note="Answered from user-provided session memory.",
+            )
+
+        asks_for_child_age = bool(re.search(
+            r"\bhow old is my (?:child|kid|son|daughter)\b",
+            normalized_message,
+        ))
+        if asks_for_child_age and session.get("child_age"):
+            return FinalOutput(
+                final_response=f"You told me your child is {session['child_age']} years old.",
+                category="Conversation memory",
+                confidence="high",
+                escalated=False,
+                lead_capture_requested=False,
+                internal_note="Answered from user-provided session memory.",
+            )
+
+        return None
 
     @staticmethod
     def _finalize(classification, retrieval, draft, decision, guardrails: GuardrailOutput) -> FinalOutput:

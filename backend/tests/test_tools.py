@@ -48,3 +48,28 @@ def test_service_returns_exact_final_schema():
         "lead_capture_requested", "internal_note",
     }
 
+
+def test_service_recalls_user_provided_name_within_session():
+    get_settings.cache_clear()
+    service = FAQAssistantService(dataset(), get_settings())
+
+    # A previously cached no-match must not hide a fact supplied later.
+    service.process_message("What is my name?", session_id="family-1")
+    service.process_message(
+        "Hi, my name is maya, I have a 14 yr old kid.", session_id="family-1"
+    )
+    result = service.process_message("What is my name?", session_id="family-1")
+
+    assert result.final_response == "Your name is Maya."
+    assert result.category == "Conversation memory"
+    assert result.escalated is False
+
+
+def test_session_memory_is_isolated_between_sessions():
+    get_settings.cache_clear()
+    service = FAQAssistantService(dataset(), get_settings())
+    service.process_message("My name is Maya.", session_id="family-1")
+
+    result = service.process_message("What is my name?", session_id="family-2")
+
+    assert "Maya" not in result.final_response
