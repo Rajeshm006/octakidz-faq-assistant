@@ -5,9 +5,9 @@ A production-oriented monorepo for a warm, parent-friendly OctaKidz FAQ chat exp
 ## Safety and grounding
 
 - User-facing OctaKidz facts come only from `backend/app/data/faq_dataset.json`.
-- FAQ retrieval is deterministic token overlap. There is no RAG, embeddings, vector database, web search, or external business knowledge source.
-- The backend implements four strict Pydantic handoffs: classification, retrieval, drafting, and escalation/refusal.
-- A deterministic finalizer enforces refusal, escalation, no-match, and lead-capture policy after the fourth handoff.
+- The live flow follows the project notebook's four-agent CrewAI sequence: classification, FAQ retrieval, response drafting, and escalation/refusal.
+- Product facts remain grounded in the validated local FAQ tool. There is no RAG, vector database, or web search.
+- Every agent handoff is Pydantic-validated, and deterministic guardrail, lookup, and escalation tools remain authoritative. If the model is unavailable, the API falls back to the local deterministic workflow.
 - `internal_note` is returned to the API caller for trusted operational use, but the Angular UI never renders it.
 - Optional session memory/cache is in process only. It is cleared whenever a Render instance restarts.
 
@@ -41,12 +41,12 @@ Edit `backend/.env` and set only your own secret locally:
 
 ```text
 OPENAI_API_KEY=your_real_key
-MODEL_NAME=gpt-5.6
+MODEL_NAME=gpt-5
 ALLOWED_ORIGINS=http://localhost:4200
-ENABLE_LIVE_CREWAI=false
+ENABLE_LIVE_CREWAI=true
 ```
 
-Do not print, share, or commit this file. The default `ENABLE_LIVE_CREWAI=false` keeps API calls disabled while preserving the deterministic, JSON-grounded workflow. If you opt in to the CrewAI pass, it runs server-side only; the final Python policy remains authoritative.
+Do not print, share, or commit this file. `ENABLE_LIVE_CREWAI=true` runs the notebook-derived LLM workflow server-side. Set it to `false` for offline development or deterministic tests.
 
 Start the API:
 
@@ -84,7 +84,7 @@ cd frontend && npm test
 ## A. Run locally
 
 1. Create and activate the Python virtual environment, install `backend/requirements.txt`, and create `backend/.env` using the commands above.
-2. Confirm `backend/.env` contains `OPENAI_API_KEY=your_real_key`, `MODEL_NAME=gpt-5.6`, and `ALLOWED_ORIGINS=http://localhost:4200`.
+2. Confirm `backend/.env` contains `OPENAI_API_KEY=your_real_key`, `MODEL_NAME=gpt-5`, and `ALLOWED_ORIGINS=http://localhost:4200`.
 3. Start FastAPI:
 
    ```bash
@@ -139,9 +139,9 @@ cd frontend && npm test
 
    ```text
    OPENAI_API_KEY=your_real_key
-   MODEL_NAME=gpt-5.6
+   MODEL_NAME=gpt-5
    ALLOWED_ORIGINS=https://your-vercel-app.vercel.app
-   ENABLE_LIVE_CREWAI=false
+   ENABLE_LIVE_CREWAI=true
    ```
 
 6. Deploy and copy the public service URL. Verify `https://your-render-service.onrender.com/health` in a browser.

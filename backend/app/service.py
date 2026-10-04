@@ -8,7 +8,7 @@ from .workflow import (
     draft_response,
     make_decision,
     retrieve_faq,
-    run_optional_live_crewai,
+    run_live_crewai,
 )
 
 
@@ -25,11 +25,11 @@ class FAQAssistantService:
         self.faq_dataset = faq_dataset
         self.settings = settings
         self._session_memory: dict[str, dict[str, str]] = {}
-        self._response_cache: dict[tuple[str, str], FinalOutput] = {}
+        self._session_history: dict[str, list[dict[str, str]]] = {}
+        self._response_cache: dict[tuple[str, str, str], FinalOutput] = {}
 
     def process_message(self, user_message: str, session_id: str | None = None) -> FinalOutput:
         normalized = user_message.strip().lower()
-        cache_key = (session_id or "", normalized)
 
         guardrails = guardrail_check(user_message)
         session: dict[str, str] = {}
@@ -39,31 +39,86 @@ class FAQAssistantService:
             memory_response = self._answer_from_session_memory(normalized, session)
             if memory_response is not None and not guardrails.should_refuse:
                 session["last_message"] = user_message
+                self._record_history(session_id, user_message, memory_response.final_response)
                 return memory_response
 
         small_talk_response = self._answer_small_talk(normalized)
         if small_talk_response is not None and not guardrails.should_refuse:
             if session_id:
                 session["last_message"] = user_message
+                self._record_history(session_id, user_message, small_talk_response.final_response)
             return small_talk_response
 
+        facts_fingerprint = "|".join(
+            f"{key}={session[key]}" for key in ("name", "child_age") if session.get(key)
+        )
+        cache_key = (session_id or "", normalized, facts_fingerprint)
         if cache_key in self._response_cache:
             return self._response_cache[cache_key]
 
         faq_message = self._contextualize_faq_question(user_message, normalized, session)
+        if self.settings.enable_live_crewai and not guardrails.should_refuse:
+            try:
+                result = run_live_crewai(
+                    self.settings,
+                    self.faq_dataset,
+                    faq_message,
+                    self._known_context(session),
+                    self._history_text(session_id),
+                )
+                if session_id:
+                    session["last_message"] = user_message
+                    self._record_history(session_id, user_message, result.final_response)
+                self._response_cache[cache_key] = result
+                return result
+            except Exception:
+                # A model outage must not break the FAQ assistant. The validated,
+                # deterministic pipeline below remains the safe fallback.
+                pass
+
         # The exact four sequential handoffs are locally validated Pydantic models.
         classification = classify_message(self.faq_dataset, faq_message, guardrails)
         retrieval = retrieve_faq(self.faq_dataset, faq_message, classification)
         draft = draft_response(retrieval)
         decision = make_decision(classification, retrieval, guardrails, user_message)
-        # An optional CrewAI pass may assist operations, but cannot override this finalizer.
-        run_optional_live_crewai(self.settings, self.faq_dataset, user_message)
         result = self._finalize(classification, retrieval, draft, decision, guardrails)
 
         if session_id:
             self._session_memory.setdefault(session_id, {})["last_message"] = user_message
+            self._record_history(session_id, user_message, result.final_response)
         self._response_cache[cache_key] = result
         return result
+
+    @staticmethod
+    def _known_context(session: dict[str, str]) -> str:
+        labels = {"name": "Parent name", "child_age": "Child age"}
+        parts = [
+            f"{labels[key]}: {session[key]}"
+            for key in labels
+            if session.get(key)
+        ]
+        return "; ".join(parts) if parts else "No known parent or child details yet."
+
+    def _history_text(self, session_id: str | None) -> str:
+        if not session_id:
+            return "(no prior messages in this conversation)"
+        recent = self._session_history.get(session_id, [])[-6:]
+        if not recent:
+            return "(no prior messages in this conversation)"
+        return "\n".join(
+            ("Parent" if turn["role"] == "user" else "Assistant") + ": " + turn["text"]
+            for turn in recent
+        )
+
+    def _record_history(self, session_id: str, user_message: str, assistant_message: str) -> None:
+        history = self._session_history.setdefault(session_id, [])
+        history.extend(
+            [
+                {"role": "user", "text": user_message},
+                {"role": "assistant", "text": assistant_message},
+            ]
+        )
+        del history[:-12]
 
     @staticmethod
     def _remember_user_facts(user_message: str, session: dict[str, str]) -> None:

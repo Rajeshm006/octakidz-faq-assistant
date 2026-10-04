@@ -7,6 +7,7 @@ from .schemas import (
     ClassificationOutput,
     DecisionOutput,
     DraftOutput,
+    FinalOutput,
     GuardrailOutput,
     RetrievalOutput,
 )
@@ -78,9 +79,11 @@ def make_decision(
 
 
 def build_crewai_workflow(settings: "Settings", faq_dataset: "FAQDataset"):
-    """Build exactly four sequential CrewAI agents; this function makes no API call."""
-    from crewai import Agent, Crew, Process, Task
+    """Build the notebook's four-agent workflow for one isolated API request."""
+    from crewai import Agent, Crew, LLM, Process, Task
     from crewai.tools import tool
+
+    llm = LLM(model=settings.model_name)
 
     @tool("faq_lookup")
     def faq_lookup_tool(user_message: str, category: str = "") -> str:
@@ -99,61 +102,106 @@ def build_crewai_workflow(settings: "Settings", faq_dataset: "FAQDataset"):
         return json.dumps(escalation_decision(category, confidence, parsed_flags, user_message))
 
     classifier = Agent(
-        role="Classification agent",
-        goal="Classify category, intent, urgency, and guardrail risks; never answer the customer.",
-        backstory="You route parent questions carefully.",
-        llm=settings.model_name,
+        role="Parent Query Classification Agent",
+        goal=(
+            "Classify every parent message into the correct OctaKidz FAQ category and detect "
+            "guardrail signals before any answer is generated."
+        ),
+        backstory=(
+            "You are the first point of contact for the OctaKidz Parent Assistant. You triage "
+            "messages and use conversation context, but never answer the parent yourself."
+        ),
+        llm=llm,
         verbose=False,
+        allow_delegation=False,
     )
     retriever = Agent(
-        role="FAQ retrieval agent",
-        goal="Retrieve only validated FAQ information and report confidence truthfully.",
-        backstory="You never invent a FAQ match.",
+        role="Knowledge & Policy Reasoning Agent",
+        goal=(
+            "Retrieve the best matching answer from the curated OctaKidz FAQ and report "
+            "confidence honestly rather than guessing."
+        ),
+        backstory="You trust only the supplied FAQ tool and never invent product facts.",
         tools=[faq_lookup_tool],
-        llm=settings.model_name,
+        llm=llm,
         verbose=False,
+        allow_delegation=False,
     )
     drafter = Agent(
-        role="Response drafting agent",
-        goal="Write concise, warm, parent-friendly replies from retrieved FAQ information only.",
-        backstory="You do not guess when retrieval is uncertain.",
-        llm=settings.model_name,
+        role="Response Drafting Agent",
+        goal=(
+            "Turn the retrieved FAQ answer into a warm, concise, parent-friendly reply without "
+            "adding facts that are absent from the FAQ result."
+        ),
+        backstory=(
+            "You write in the OctaKidz voice: simple, supportive and never over-promising."
+        ),
+        llm=llm,
         verbose=False,
+        allow_delegation=False,
     )
     decider = Agent(
-        role="Escalation and refusal agent",
-        goal="Use local safety and escalation outcomes without exposing internal details.",
-        backstory="You preserve the server's safety policy.",
+        role="Escalation & Lead Decision Agent",
+        goal=(
+            "Apply the deterministic escalation decision and package the final parent-facing "
+            "response without exposing internal details."
+        ),
+        backstory="You are the workflow's safety net and must follow tool policy exactly.",
         tools=[guardrail_tool, escalation_tool],
-        llm=settings.model_name,
+        llm=llm,
         verbose=False,
+        allow_delegation=False,
     )
     tasks = [
         Task(
-            description="Classify {user_message}. Do not answer the customer.",
+            description=(
+                "KNOWN CONTEXT: {known_context}\n\nRECENT CONVERSATION:\n{history}\n\n"
+                "Classify the parent's new message, {user_message}, into the best FAQ category. "
+                "Call the guardrail tool on the raw message, use context to resolve references, "
+                "and return only the structured classification. Do not answer the parent."
+            ),
             expected_output="Classification JSON.",
             agent=classifier,
             output_pydantic=ClassificationOutput,
         ),
         Task(
-            description="Retrieve a FAQ match for {user_message} using the local tool only.",
+            description=(
+                "Using the category from the classification and the original message "
+                "{user_message}, call the FAQ lookup tool. Return its result faithfully. "
+                "Never invent an answer or claim a stronger confidence than the tool reports."
+            ),
             expected_output="Retrieval JSON.",
             agent=retriever,
+            context=[],
             output_pydantic=RetrievalOutput,
         ),
         Task(
-            description="Draft a response based only on retrieved FAQ content.",
+            description=(
+                "KNOWN CONTEXT: {known_context}\n\nDraft a warm, concise reply to {user_message} "
+                "using only the retrieved FAQ answer and its optional link. Personalize with known "
+                "context only when relevant. If no FAQ matched, use the standard team-help fallback."
+            ),
             expected_output="Draft JSON.",
             agent=drafter,
+            context=[],
             output_pydantic=DraftOutput,
         ),
         Task(
-            description="Apply safety and escalation policy for {user_message}.",
-            expected_output="Decision JSON.",
+            description=(
+                "For {user_message}, call the guardrail and escalation tools using the previous "
+                "outputs. Package the draft into the exact FinalOutput schema. Preserve the FAQ "
+                "category and confidence, refuse guardrail violations, and request lead capture "
+                "only when the escalation tool requires it. Do not add new product facts."
+            ),
+            expected_output="FinalOutput JSON.",
             agent=decider,
-            output_pydantic=DecisionOutput,
+            context=[],
+            output_pydantic=FinalOutput,
         ),
     ]
+    tasks[1].context = [tasks[0]]
+    tasks[2].context = [tasks[0], tasks[1]]
+    tasks[3].context = [tasks[0], tasks[1], tasks[2]]
     return Crew(
         agents=[classifier, retriever, drafter, decider],
         tasks=tasks,
@@ -162,9 +210,21 @@ def build_crewai_workflow(settings: "Settings", faq_dataset: "FAQDataset"):
     )
 
 
-def run_optional_live_crewai(
-    settings: "Settings", faq_dataset: "FAQDataset", user_message: str
-) -> None:
-    """Optional model pass. Deterministic Python still supplies every final decision."""
-    if settings.enable_live_crewai:
-        build_crewai_workflow(settings, faq_dataset).kickoff(inputs={"user_message": user_message})
+def run_live_crewai(
+    settings: "Settings",
+    faq_dataset: "FAQDataset",
+    user_message: str,
+    known_context: str,
+    history: str,
+) -> FinalOutput:
+    """Run the notebook-derived LLM workflow and validate its final structured output."""
+    result = build_crewai_workflow(settings, faq_dataset).kickoff(
+        inputs={
+            "user_message": user_message,
+            "known_context": known_context,
+            "history": history,
+        }
+    )
+    if result.pydantic is not None:
+        return FinalOutput.model_validate(result.pydantic)
+    return FinalOutput.model_validate_json(result.raw)

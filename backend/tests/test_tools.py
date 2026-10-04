@@ -2,7 +2,9 @@ import os
 from pathlib import Path
 
 os.environ.setdefault("OPENAI_API_KEY", "test-key-not-real")
+os.environ.setdefault("ENABLE_LIVE_CREWAI", "false")
 
+from app.config import Settings
 from app.faq_data import load_faq_dataset
 from app.schemas import FinalOutput
 from app.service import FAQAssistantService
@@ -100,3 +102,38 @@ def test_age_and_eligibility_context_routes_to_age_faq():
     assert result.category == "Age and eligibility"
     assert "10–14" in result.final_response
     assert recall.final_response == "Your name is Maya."
+
+
+def test_enabled_llm_workflow_supplies_context_and_uses_validated_result(monkeypatch):
+    captured = {}
+
+    def fake_live_workflow(settings, faq_dataset, user_message, known_context, history):
+        captured.update(
+            user_message=user_message,
+            known_context=known_context,
+            history=history,
+        )
+        return FinalOutput(
+            final_response="A warm, FAQ-grounded LLM response.",
+            category="Activities and methodology",
+            confidence="high",
+            escalated=False,
+            lead_capture_requested=False,
+            internal_note="Validated structured LLM output.",
+        )
+
+    monkeypatch.setattr("app.service.run_live_crewai", fake_live_workflow)
+    settings = Settings(
+        openai_api_key="test-key-not-real",
+        model_name="gpt-5",
+        enable_live_crewai=True,
+    )
+    service = FAQAssistantService(dataset(), settings)
+
+    result = service.process_message(
+        "My name is Maya. How do the activities work?", session_id="family-llm"
+    )
+
+    assert result.final_response == "A warm, FAQ-grounded LLM response."
+    assert captured["known_context"] == "Parent name: Maya"
+    assert captured["history"] == "(no prior messages in this conversation)"

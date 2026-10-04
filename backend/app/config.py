@@ -11,9 +11,9 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     openai_api_key: SecretStr
-    model_name: str = "gpt-5.6"
+    model_name: str = "gpt-5"
     allowed_origins: str = "http://localhost:4200"
-    enable_live_crewai: bool = False
+    enable_live_crewai: bool = True
 
     @property
     def cors_origins(self) -> list[str]:
