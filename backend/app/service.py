@@ -1,3 +1,4 @@
+import logging
 import re
 
 from .config import Settings
@@ -16,6 +17,7 @@ REFUSAL_RESPONSE = (
     "I’m sorry, but I can’t help with that request. "
     "For a legitimate OctaKidz question, I’m happy to help with information from our FAQ."
 )
+logger = logging.getLogger(__name__)
 
 
 class FAQAssistantService:
@@ -59,12 +61,15 @@ class FAQAssistantService:
         faq_message = self._contextualize_faq_question(user_message, normalized, session)
         if self.settings.enable_live_crewai and not guardrails.should_refuse:
             try:
-                result = run_live_crewai(
+                live_result = run_live_crewai(
                     self.settings,
                     self.faq_dataset,
                     faq_message,
                     self._known_context(session),
                     self._history_text(session_id),
+                )
+                result = live_result.model_copy(
+                    update={"internal_note": f"LLM workflow: {live_result.internal_note}"}
                 )
                 if session_id:
                     session["last_message"] = user_message
@@ -74,7 +79,7 @@ class FAQAssistantService:
             except Exception:
                 # A model outage must not break the FAQ assistant. The validated,
                 # deterministic pipeline below remains the safe fallback.
-                pass
+                logger.exception("Live CrewAI workflow failed; using deterministic fallback")
 
         # The exact four sequential handoffs are locally validated Pydantic models.
         classification = classify_message(self.faq_dataset, faq_message, guardrails)

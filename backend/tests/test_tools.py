@@ -135,5 +135,6 @@ def test_enabled_llm_workflow_supplies_context_and_uses_validated_result(monkeyp
     )
 
     assert result.final_response == "A warm, FAQ-grounded LLM response."
+    assert result.internal_note == "LLM workflow: Validated structured LLM output."
     assert captured["known_context"] == "Parent name: Maya"
     assert captured["history"] == "(no prior messages in this conversation)"
